@@ -30,7 +30,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: funzo69/spring-admin:latest
+          tags: funzo69/spring-admin:$GITHUB_SHA
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
