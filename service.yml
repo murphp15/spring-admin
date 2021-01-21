@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: gke-test-service
 spec:
+  loadBalancerIP: 34.89.103.106
   type: LoadBalancer
   ports:
     - port: 80
