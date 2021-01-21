@@ -1,0 +1,30 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-admin
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: spring-admin
+    spec:
+      containers:
+      - name: spring-admin
+        image: PROJECT_ID/IMAGE:TAG
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            cpu: 100m
+          limits:
+            cpu: 100m
