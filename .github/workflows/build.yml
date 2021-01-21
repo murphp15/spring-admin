@@ -24,8 +24,6 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Login to DockerHub
-        run: echo $GITHUB_SHA
-      - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -73,7 +71,7 @@ jobs:
       - name: Deploy
         run: |-
           cd devops
-          ./kustomize edit set image PROJECT_ID/IMAGE:TAG=funzo69/$IMAGE:${github.sha}
+          ./kustomize edit set image PROJECT_ID/IMAGE:TAG=funzo69/$IMAGE:${{github.sha}}
           ./kustomize build . | kubectl apply -f -
           kubectl rollout status deployment/$DEPLOYMENT_NAME
           kubectl get services -o wide
