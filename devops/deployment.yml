@@ -20,11 +20,6 @@ spec:
       labels:
         app: spring-admin
     spec:
-      healthCheck:
-        checkIntervalSec: 15
-        port: 8080
-        type: HTTP
-        requestPath: /actuator/health
       containers:
       - name: spring-admin
         image: PROJECT_ID/IMAGE:TAG
