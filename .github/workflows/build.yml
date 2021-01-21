@@ -7,10 +7,10 @@ on: [push, workflow_dispatch]
 
 env: 
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: cluster-1    # TODO: update to cluster name
-  GKE_ZONE: us-central1-c   # TODO: update to cluster zone
-  DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
-  IMAGE: static-site
+  GKE_CLUSTER: cluster-1 
+  GKE_ZONE: europe-west2-a   # TODO: update to cluster zone
+  DEPLOYMENT_NAME: spring-admin
+  IMAGE: spring-admin
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -37,7 +37,24 @@ jobs:
         with:
           push: true
           tags: funzo69/spring-admin:$GITHUB_SHA
-      -
+      - 
+        
+            # start of the google stuff
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          version: '290.0.1'
+          service_account_key: ${{ secrets.GKE_SA_KEY }}
+          project_id: ${{ secrets.GKE_PROJECT }}
+
+      # Configure Docker to use the gcloud command-line tool as a credential
+      # helper for authentication
+      - run: |-
+          gcloud --quiet auth configure-docker
+      # Get the GKE credentials so we can deploy to the cluster
+      - run: |-
+          gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
+        
+        
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
       
