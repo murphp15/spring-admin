@@ -37,8 +37,7 @@ jobs:
         with:
           push: true
           tags: funzo69/spring-admin:$GITHUB_SHA
-      - 
-        
+    
             # start of the google stuff
       - uses: google-github-actions/setup-gcloud@master
         with:
@@ -55,7 +54,7 @@ jobs:
           gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
         
         
-        name: Image digest
+      - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
       
       - name: Set up Kustomize
