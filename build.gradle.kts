@@ -5,6 +5,12 @@ plugins {
     id("org.jetbrains.kotlin.plugin.spring") version "1.4.21"
 }
 
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2020.0.0")
+    }
+}
+
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
@@ -23,6 +29,8 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
+
+    api("org.springframework.cloud:spring-cloud-starter-kubernetes-fabric8-all")
     api("org.springframework.boot:spring-boot-starter-web")
     api("de.codecentric:spring-boot-admin-starter-server:2.3.1")
 }
