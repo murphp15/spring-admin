@@ -33,7 +33,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: funzo69/spring-admin:${{ github.sha }}
+          tags: funzo69/${{ github.event.repository.name }}:${{ github.sha }}
 
       - uses: actions/checkout@v2
             # start of the google stuff
